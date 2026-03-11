@@ -134,11 +134,11 @@ flwr run . <SUPERLINK-CONNECTION> --stream
 |-----|---------|-------------|
 | `num-server-rounds` | 10 | Federated rounds |
 | `batch-size` | 32 | Local batch size |
-| `local-epochs` | 3 | Epochs per client per round |
-| `learning-rate` | 0.002 | Adam learning rate |
+| `local-epochs` | 5 | Epochs per client per round |
+| `learning-rate` | 0.003 | Adam learning rate |
 | `test-fraction` | 0.2 | Fraction of data held out for validation |
 | `num-partitions` | 5 | Virtual vendors in simulation |
-| `samples-per-class` | 40 | Training samples per property class per vendor |
+| `samples-per-class` | 80 | Training samples per property class per vendor |
 | `model-save-path` | `output/witsml_mapper.pt` | Where the server saves the global model |
 | `seed` | 42 | Random seed |
 | `proximal-mu` | 0.1 | FedProx proximal term. `0.0` = plain FedAvg |
