@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fed-witsml-map"
+version = "0.1.0"
+description = "Federated WITSML mnemonic mapping: learn a universal channel-name classifier across vendors using FedProx, without requiring a centrally maintained mapping database."
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flwr[simulation]>=1.26.1",
+    "torch>=2.0.0",
+    "numpy>=1.24.0",
+    "scikit-learn>=1.3.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["fed_witsml_map"]
+
+[tool.flwr.app]
+publisher = "drillsense"
+
+[tool.flwr.app.components]
+serverapp = "fed_witsml_map.server_app:app"
+clientapp = "fed_witsml_map.client_app:app"
+
+[tool.flwr.app.config]
+num-server-rounds = 10
+batch-size = 32
+local-epochs = 5
+learning-rate = 0.003
+test-fraction = 0.2
+fraction-evaluate = 1.0
+num-partitions = 5
+seed = 42
+samples-per-class = 80
+model-save-path = "output/witsml_mapper.pt"
+# FedProx proximal term. Prevents any single vendor's conventions from dominating.
+# 0.0 = plain FedAvg.
+proximal-mu = 0.1
